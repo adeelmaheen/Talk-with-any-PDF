@@ -1,10 +1,9 @@
 import streamlit as st
 from PyPDF2 import PdfReader
-from langchain_text_splitters import RecursiveCharacterTextSplitter 
+from langchain.text_splitter import RecursiveCharacterTextSplitter  # Corrected import
 from langchain_google_genai import GoogleGenerativeAIEmbeddings, ChatGoogleGenerativeAI
 from langchain_community.vectorstores import FAISS 
 from pydantic import SecretStr
-from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain.chains.question_answering import load_qa_chain
 from dotenv import load_dotenv
 import os
@@ -85,7 +84,7 @@ if query and st.session_state.vectorstore is not None:
         st.subheader("Answer:")
         st.write(response)
         
-        st.subheader("Reference :")
+        st.subheader("Reference:")
         for i, doc in enumerate(similar_chunks, 1):
             st.markdown(f"**Reference {i}:**")
             st.write(doc.page_content)
@@ -93,4 +92,3 @@ if query and st.session_state.vectorstore is not None:
 
     except Exception as e:
         st.error(f"An error occurred while generating the answer: {str(e)}")
-
